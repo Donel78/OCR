@@ -1,5 +1,6 @@
 # include "OCR.h"
 
+
 int main(void)
 {
   SDL_Surface          *screen;
@@ -9,7 +10,7 @@ int main(void)
   Uint8 g = 0;
   Uint8 b = 0;
 
-  img = IMG_Load("Lorem.bmp");
+  img = IMG_Load("dilution.jpg");
 
   if (!img)
     errx(3, "can't load %s: %s", "lol.png", IMG_GetError());
@@ -45,10 +46,11 @@ int main(void)
   int white = 1;
   int cpt = 0;
   int endofline = 0;
+
   struct line *sheet = malloc(sizeof (struct line));
   for (int i = 0; i < img->h; i++)
    {
-     sheet = realloc(sheet, sizeof(struct line));	
+     sheet = realloc(sheet, (cpt + 1) * sizeof(struct line));	
      for (int j = 0; j < img->w; j++)
       {
 	if (white == 1)
@@ -57,7 +59,6 @@ int main(void)
 	   SDL_GetRGB(myPix, img->format, &r, &g, &b);
 	   if (r == 0)
 	    {
-	      printf("%d\n", cpt);	
 	      sheet[cpt].start = i;  
 	      white = 0;
 	    }
@@ -79,15 +80,98 @@ int main(void)
 
 	else
 	 {
-	   sheet[cpt].end = i;  
+	   sheet[cpt].end = i;
 	   white = 1;
 	   cpt++;
 	 }
       }
    }
+
+  int cptline = 0;
+  int cptletter = 0;
+  while (cptline < cpt)
+  { 	
+  	  white = 1;
+ 	  endofline = 0;
+	  for (int i = 0; i < img->w; i++)
+	  {
+	  	  for (int j = sheet[cptline].start; j < sheet[cptline].end; j++)
+		  {
+			  if (white == 1)
+			  {
+				  myPix = getpixel(screen, i, j);
+				  SDL_GetRGB(myPix, img->format, &r, &g, &b);
+				  if (r == 0)
+				  {
+
+					  //sheet[cptline].letter = realloc(sheet[cptline].letter, (cptletter + 1) * sizeof(int));  
+					  sheet[cptline].letter[cptletter] = i;   
+					  cptletter++;
+					  white = 0;
+				  }
+			  }
+			  else
+			  {
+				  myPix = getpixel(screen, i, j);
+				  SDL_GetRGB(myPix, img->format, &r, &g, &b);
+				  if (r == 0)
+				  {
+					  endofline = 0;
+				  }
+			  }
+		  }
+		  if (white == 0)
+		  {
+			  if (endofline == 0)
+				  endofline = 1;
+			  else
+			  {
+				  //sheet[cptline].letter = realloc(sheet[cptline].letter, (cptletter + 1) * sizeof(int));  
+				  sheet[cptline].letter[cptletter] = i;  
+				  white = 1;
+				  cptletter++;
+			  }
+		  }
+	  }
+	sheet[cptline].letter[cptletter] = '\0';  
+	cptletter = 0;
+	cptline++;
+  }
 /******************************* Affichage pour tester la segmentation *******************************************/
-	int cpt3 = 0;
-	while (cpt3 <= cpt)
+  int cpt3 = 0;
+  while (cpt3 < cpt)
+  {	
+	  for (int j = 0; j < img->w; j++)
+	  {		
+		  putpixel(screen, j ,sheet[cpt3].start , SDL_MapRGB(img->format,  0 , 0 , 255 ));
+		  putpixel(screen , j , sheet[cpt3].end , SDL_MapRGB(img->format, 0 ,0 , 255));
+	  }
+	  cpt3++;
+	  SDL_UpdateRect(screen, 0, 0, img->w, img->h);
+
+  }	
+
+  int cpt4 = 0;
+  int h = 0;
+  while (cpt4 < cpt)
+  {
+	while ((sheet[cpt4].letter[h] != '\0'))
+	{	
+	  for (int j = sheet[cpt4].start; j < sheet[cpt4].end; j++)
+	  {			
+		  putpixel(screen, sheet[cpt4].letter[h], j,SDL_MapRGB(img->format,  255 , 0 , 0));
+		  putpixel(screen,  sheet[cpt4].letter[h + 1], j, SDL_MapRGB(img->format,  255 , 0 , 0));
+	  }
+	  h++;
+	}
+	h = 0;
+	cpt4++;
+	 SDL_UpdateRect(screen, 0, 0, img->w, img->h);
+  }
+
+
+/*int cpt3 = 0;
+	while (sheet + cpt3 != NULL)
 	{
 		int cpt2 = 0;
 		for (int i = sheet[cpt3].start; i < sheet[cpt3].end; i++)
@@ -103,8 +187,11 @@ int main(void)
   		SDL_UpdateRect(screen, 0, 0, img->w, img->h);
 		sleep(1);
 		cpt3++;
+}*/
 /*******************************************************************************************************************/
-	} 
+
+ /*******************************************************************************************************************/
+
 	SDL_Event	event;
   	if( SDL_Init(SDL_INIT_VIDEO)==-1 ) 
     	errx(1,"Could not initialize SDL: %s.\n", SDL_GetError());
@@ -119,4 +206,5 @@ int main(void)
 	}
 	SDL_FreeSurface(screen);
 	SDL_FreeSurface(img);
+	free(sheet);
 }

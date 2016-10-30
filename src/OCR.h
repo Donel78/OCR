@@ -11,10 +11,10 @@ struct line
 {
 	int start;
 	int end;
-	int *letter;
+	int letter[200];
 };
  
 Uint32 getpixel(SDL_Surface *surface, unsigned x, unsigned y);
 void putpixel(SDL_Surface *surface, unsigned x, unsigned y, Uint32 pixel);
- 
+//void DetectLine(SDL_Surface *surface,struct line *sheet); 
 # endif
