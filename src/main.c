@@ -10,7 +10,7 @@ int main(void)
   Uint8 g = 0;
   Uint8 b = 0;
 
-  img = IMG_Load("dilution.jpg");
+  img = IMG_Load("Lorem.bmp");
 
   if (!img)
     errx(3, "can't load %s: %s", "lol.png", IMG_GetError());
@@ -46,7 +46,7 @@ int main(void)
   int white = 1;
   int cpt = 0;
   int endofline = 0;
-
+/******************************  Line Detections ***************************/
   struct line *sheet = malloc(sizeof (struct line));
   for (int i = 0; i < img->h; i++)
    {
@@ -86,9 +86,11 @@ int main(void)
 	 }
       }
    }
+/************************************************************************/
 
   int cptline = 0;
   int cptletter = 0;
+/*********************** Char Detections *******************************/
   while (cptline < cpt)
   { 	
   	  white = 1;
@@ -104,7 +106,6 @@ int main(void)
 				  if (r == 0)
 				  {
 
-					  //sheet[cptline].letter = realloc(sheet[cptline].letter, (cptletter + 1) * sizeof(int));  
 					  sheet[cptline].letter[cptletter] = i;   
 					  cptletter++;
 					  white = 0;
@@ -126,7 +127,6 @@ int main(void)
 				  endofline = 1;
 			  else
 			  {
-				  //sheet[cptline].letter = realloc(sheet[cptline].letter, (cptletter + 1) * sizeof(int));  
 				  sheet[cptline].letter[cptletter] = i;  
 				  white = 1;
 				  cptletter++;
@@ -137,7 +137,8 @@ int main(void)
 	cptletter = 0;
 	cptline++;
   }
-/******************************* Affichage pour tester la segmentation *******************************************/
+/************************************************************************************************/
+/*************************** Affichage pour tester la segmentation *******************************/
   int cpt3 = 0;
   while (cpt3 < cpt)
   {	
@@ -170,27 +171,8 @@ int main(void)
   }
 
 
-/*int cpt3 = 0;
-	while (sheet + cpt3 != NULL)
-	{
-		int cpt2 = 0;
-		for (int i = sheet[cpt3].start; i < sheet[cpt3].end; i++)
-		{
-			for (int j = 0; j < img->w; j++)
-			{
-				myPix = getpixel(screen, j, i);
-				SDL_GetRGB(myPix, img->format, &r, &g, &b);
-				putpixel(screen, j, cpt2, SDL_MapRGB(img->format,  r , g , b ));
-			}
-			cpt2++;
-		}
-  		SDL_UpdateRect(screen, 0, 0, img->w, img->h);
-		sleep(1);
-		cpt3++;
-}*/
-/*******************************************************************************************************************/
 
- /*******************************************************************************************************************/
+/************************************************************************************************/
 
 	SDL_Event	event;
   	if( SDL_Init(SDL_INIT_VIDEO)==-1 ) 

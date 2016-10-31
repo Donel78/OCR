@@ -1,12 +1,11 @@
 # include "OCR.h"
 
 
-void DetectLine(SDL_Surface *screen ,struct line *sheet)
+void DetectLine(SDL_Surface *img ,struct line *sheet, int *cpt)
 {
 
 
   int white = 1;
-  int cpt = 0;
   int endofline = 0;
   for (int i = 0; i < img->h; i++)
    {
