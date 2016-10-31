@@ -1,0 +1,156 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+
+
+\title{Projet O.C.R (\textit{Optical Character Recognition})}
+\author{Donel Le Jossec, Lucas Rangeard et Kenzy Suon}
+\date{31 octobre 2016}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\part{Presentation du groupe}
+	
+
+	\huge {\bfseries Introduction \newline } \\
+	
+	\Large
+	
+	Notre groupe est compose de Donel Le Jossec, Lucas Rangeard et Kenzy Suon, de la classe d'API. \newline
+	
+	La consistitution des groupes s'est faite le 23 septembre 2016 et c'est a partir de ce jour que nous avons commence la repartition des taches. \newline
+
+	Il n'y a pas reellement de Chef de Projet designe, car cette repartition s'est faite sur l'accord de chacun en fonction des competences et des ressources de chaque personne du groupe. \newline
+
+	Au sein du groupe, nous avons une bonne entente ainsi qu'une bonne complementarite, c'est pourquoi nous essayons tous ensemble de donner notre maximim pour la reussite du projet. \\
+
+
+        
+\part{Repartition des charges}
+
+	\huge {\bfseries Introduction } \\
+	
+	\Large
+	
+	Le premier jour, juste apres la constitution de groupe, nous avons commence par une premiere reunion tous ensemble afin de pouvoir mieux connaitre les competences et les ressources de chacun. \newline
+	
+	
+	Le but etait que chaque membre du groupe explique ses principales experiences et qualites pour alors savoir qui serait plus apte a realiser une tache specifique. \newline
+	
+	
+	C'est pourquoi en vue de la premiere soutenance, nous nous sommes mis d'accord sur une repartition des taches bien precise.\\ \newpage 	
+	
+	\chapter{Programmation} 
+	
+	\newpage 	
+	
+	\huge {\bfseries Programmation } \\
+	
+	\Large
+	
+	Donel etant le apte et le plus qualifie, il s'est occupe en grande partie de la partie programmation. \newline
+	
+	Pour apporter plus de precision, nous avons longuement discute entre nous afin de trouver comment nous allions nous y prendre et les solutions que que nous allions adopter afin de resoudre les problemes poses. Nous avons donc tous les trois reflechis aux etapes a suivre et aux methodes a utiliser.\newline
+	
+	
+	Cote programmation, les taches que nous devions realiser pour la premier soutenance sont : 
+	
+	\begin{itemize}
+
+
+\item Le chargement d'images et la supression des couleurs
+
+\item La detection et le decoupage blocs par blocs du texte en des lignes et en caracteres \\ \newline
+
+
+\end{itemize}
+
+Les taches sont consideres comme realise si le programme parvient a realiser la tache attendue sur des tests. \newpage
+	
+	
+	
+	
+	\chapter{Reseau de neurones} 
+	
+	\newpage 	
+	
+	\huge {\bfseries Reseau de neurones } \\
+	
+	\Large
+	
+	La partie principale du projet est la reconnaissance de caracteres du projet.\newline
+	
+	Cette etape va consister a l'apprentissage du reseau de neurones afin qu'il puisse reconnaitre les differents caracteres. \newline
+	
+	
+	
+	Le reseau de neurones est un outil permettant d'apprendre une fonction, il necessite plusieurs phases d'ajustement et de tests pouvant prendre du temps. Celui ci est d'une grande complexite, c'est pourquoi nous nous sommes penches la dessus a trois. \\
+
+
+\part{Etat d'avancement du projet}
+
+	\huge {\bfseries Introduction } \\
+
+	Pour debuter, nous nous sommes occupes des banalites. Nous avons cree notre projet sur Github afin de pouvoir centraliser notre code source et donc que chacun puisse acceder aux codes, pull les modifications d'un tel ou push ses propres modifications. Car le plus important etait de parfaitement s'organiser afin de pas s'y perdre. \newline
+	
+	
+	Nous nous sommes ensuite occupes de la repartition des taches. \newline
+	
+\chapter{Programmation} 
+
+\newpage
+
+\huge {\bfseries Programmation } \\
+	
+	\section{Chargement des images et suppression des couleurs}
+	
+	\Large
+	
+	Le chargement des images et la suppression des couleurs font parti de la phase initiale, elles permettent de rentrer dans la partie principale de l'OCR. \newline
+	
+	
+	Elle consiste tout simplement a charger l'image avec le programme afin de pouvoir la manipuler et donc de l'utiliser pour realiser les differentes taches necessaires a la reussite du projet. Pour cela, nous utilisons la librairie SDL que nous importons dans le fichier OCR.h. Ce dernier sera inclu dans tous les autres fichiers que nous utiliserons, afin justement de pouvoir agir sur l'image. 
+	Le chargement de l'image se fait dans le main du projet. \newline
+	
+	
+	C'est apres avoir fait cela que nous passons a la suppression des couleurs. Cela signifie que toutes les couleurs excluant le noir seront transformees en blanc, pour qu'au final, nous n'ayons plus qu'une image en noir et blanc. Tout cela se fait egalement dans le main. Il se fait a l'aide d'une boucle parcourant chaque ligne et d'une autre parcourant chaque colonne de l'image, lorsque le pixel est blanc, il reste blanc, sinon, il devient noir pour tout autre couleur. C'est ainsi que l'image obtenue au final sera noir et blanc. \\ \newpage
+	
+	\section{Detection et decoupage en blocs, lignes et caracteres}
+	
+	\Large
+	
+	Apres la partie du chargement d'images ainsi que la suppression des couleurs, nous nous sommes penches sur la segmentation. \newline
+	
+	
+	La Segmentation consiste a decouper l'image en plusieurs blocs afin de d'optimiser l'utilisation de celle ci. Pour realiser cette tache, nous avons tout d'abord besoin d'avoir deja effectue la suppression des couleurs. \newline
+	
+	
+	 Apres avoir realise cette etape, nous avons maintenant une image en noir et blanc. \newline
+	 
+	 
+	 Ensuite, nous parcourons chaque ligne et chaque colonne pour tester si un pixel est de couleur noire ou blanche. Une suite de pixels noirs constituent un charactere et une suite de pixels blancs constituent un espace. En parcourant toute une ligne et en delimitant une colonne. \newline
+	 
+	 
+	 Ensuite, nous calculons les pixels blancs formant les espaces afin de faire la difference entre un espace entre deux mots et l'espace entre deux lettres. \newline
+	 
+	 
+	 Nous aurons alors un decoupage en blocs de l'image. \\ 
+	 
+	
+	\chapter{Reseau de neurones} 
+
+\newpage
+
+\huge {\bfseries Reseau de neurones } \\
+	
+	\section{Comprehension du principe de reseau de neurones}
+	
+	\section{Apprentissage de la fonction XOR}
+
+\end{document}
