@@ -15,7 +15,7 @@ Uint32 myPix = 0;
 int cpt = 0;
 
 struct line *sheet = malloc(sizeof (struct line));
-struct block *block = malloc(sizeof (struct block));
+//struct block *block = malloc(sizeof (struct block));
 
   img = IMG_Load("Lorem.bmp");
 

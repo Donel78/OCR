@@ -49,6 +49,7 @@ void putpixel(SDL_Surface *surface, unsigned x, unsigned y, Uint32 pixel) {
     break;
   }
 }
+/*
 struct block *DetectBlock(SDL_Surface *screen, SDL_Surface *img,
                           struct block *block,int *cptblock)
 {
@@ -103,6 +104,7 @@ struct block *DetectBlock(SDL_Surface *screen, SDL_Surface *img,
   return block;
 
 }
+*/
 struct line *DetectLine(SDL_Surface *screen, SDL_Surface *img,
                         struct line *sheet,int *cpt)
 {
@@ -147,8 +149,6 @@ struct line *DetectLine(SDL_Surface *screen, SDL_Surface *img,
 	   sheet[*cpt].end = i;
 	   white = 1;
 	   (*cpt)++;
-     printf("%d\n",*cpt);
-
 	 }
       }
    }

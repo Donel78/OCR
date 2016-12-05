@@ -33,8 +33,8 @@ struct line* DetectLine(SDL_Surface *screen, SDL_Surface *surface,
 struct line* DetectChar(SDL_Surface *screen, SDL_Surface *surface,
                         struct line *sheet, int *cpt);
 
-struct block* DetectBlock(SDL_Surface *screen, SDL_Surface *img,
-                          struct block *block, int *cptblock);
+/*struct block* DetectBlock(SDL_Surface *screen, SDL_Surface *img,
+                          struct block *block, int *cptblock);*/
 
 void affiche_seg(SDL_Surface *surface, SDL_Surface *surface2,
                  struct line *sheet, int *cpt);
