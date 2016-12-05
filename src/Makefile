@@ -2,10 +2,10 @@
  
 CC=gcc
  
-CPPFLAGS= `pkg-config --cflags sdl`
+CPPFLAGS= `pkg-config --cflags --libs sdl gtk+-3.0`
 CFLAGS= -Wall -Wextra -Werror -std=c99 -O3
 LDFLAGS=
-LDLIBS= `pkg-config --libs sdl` -lSDL_image
+LDLIBS= `pkg-config --libs sdl gtk+-3.0` -lSDL_image
  
 SRC= OCR.c main.c
 OBJ= ${SRC:.c=.o}
